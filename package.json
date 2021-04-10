@@ -1,0 +1,60 @@
+{
+  "name": "triber",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/blur": "^3.4.1",
+    "@react-native-community/masked-view": "^0.1.7",
+    "@react-native-community/toolbar-android": "^0.1.0-rc.2",
+    "@react-navigation/drawer": "^5.3.2",
+    "@react-navigation/material-bottom-tabs": "^5.1.1",
+    "@react-navigation/material-top-tabs": "^5.1.2",
+    "@react-navigation/native": "^5.0.9",
+    "@react-navigation/stack": "^5.1.1",
+    "axios": "^0.21.1",
+    "expo": "~36.0.0",
+    "flow-bin": "^0.147.0",
+    "native-base": "^2.13.8",
+    "react": "16.13.1",
+    "react-dom": "~16.9.0",
+    "react-native": "0.63.4",
+    "react-native-axios": "^0.17.1",
+    "react-native-easy-grid": "^0.2.2",
+    "react-native-gesture-handler": "^1.5.6",
+    "react-native-image-crop-picker": "^0.36.0",
+    "react-native-image-picker": "^3.3.2",
+    "react-native-paper": "^3.8.0",
+    "react-native-raw-bottom-sheet": "^2.2.0",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.0.0-alpha.12",
+    "react-native-tab-view": "^2.13.0",
+    "react-native-touch-id": "^4.4.1",
+    "react-native-unimodules": "~0.7.0",
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-web": "~0.11.7",
+    "react-navigation": "^4.2.2",
+    "react-navigation-material-bottom-tabs": "^2.2.2",
+    "react-navigation-stack": "^2.10.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/runtime": "^7.13.9",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.21.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.65.2",
+    "react-test-renderer": "16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
