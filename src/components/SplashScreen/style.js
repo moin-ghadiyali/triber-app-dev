@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import ContentFont from '../Font';
+import ContentFont, { customFont } from '../Font';
 
 export default style = StyleSheet.create({
     splashscreen: {
@@ -9,7 +9,7 @@ export default style = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "stretch",
         position: "relative",
-        margin: 0
+        margin: 0,
     },
     triber_view: {
         position: "relative",
@@ -18,7 +18,7 @@ export default style = StyleSheet.create({
     },
     triber_text: {
         fontSize: 70,
-        fontFamily: 'Aladin-Regular',
+        fontFamily: customFont,
         color: '#ffffff'
     },
     quote: {
@@ -31,7 +31,7 @@ export default style = StyleSheet.create({
         textAlign: "left",
         lineHeight: 40,
         color: '#ffffff',
-        fontFamily: ContentFont
+        fontFamily: customFont
     },
     create_account_view: {
         position: "relative",
@@ -56,12 +56,12 @@ export default style = StyleSheet.create({
         position: "relative",
         fontSize: 20,
         color: '#336DAB',
-        fontFamily: ContentFont
+        fontFamily: customFont
     },
     login_view: {
         position: "absolute",
         right: 0,
-        top: 630
+        top: 690
     },
     t1: {
         fontSize: 16,
@@ -70,7 +70,7 @@ export default style = StyleSheet.create({
         right: 5,
         bottom: 5,
         color: '#336DAB',
-        fontFamily: ContentFont
+        fontFamily: customFont
     },
     login_button: {
         padding: 15,
@@ -88,6 +88,6 @@ export default style = StyleSheet.create({
     login_text: {
         fontSize: 20,
         color: '#ffffff',
-        fontFamily: ContentFont
+        fontFamily: customFont
     }
 })
