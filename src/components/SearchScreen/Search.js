@@ -12,10 +12,11 @@ import {
 import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import style from './style';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { IP } from '../constants';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -37,7 +38,7 @@ export default class Search extends React.Component {
         searchResults: [],
       });
     } else {
-      await fetch('http://192.168.2.8:3000/v1/search', {
+      await fetch(`${IP}/v1/search`, {
         body: JSON.stringify({
           search: value,
         }),
@@ -69,7 +70,7 @@ export default class Search extends React.Component {
           <Entypo
             name="cross"
             size={25}
-            color="#fff"
+            color="#336dab"
             style={{alignSelf: 'center'}}
             onPress={() => {
               this.textInput.clear();
@@ -91,18 +92,24 @@ export default class Search extends React.Component {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
+            borderBottomWidth: 0.3,
+            shadowColor: '#000000',
+            shadowOpacity: 0.9,
+            shadowRadius: 1,
+            shadowOffset: { width: 0, height: 10 },
+            elevation: 5
           }}>
           <View style={style.searchIcon}>
             <Icon
               name="md-search"
               size={25}
-              color="#fff"
+              color="#336dab"
               style={{alignSelf: 'center'}}
             />
           </View>
           <TextInput
             placeholder="Search..."
-            placeholderTextColor="#fff"
+            placeholderTextColor="#ccc"
             style={style.searchBar}
             value={this.state.search}
             clearButtonMode="always"
@@ -119,7 +126,9 @@ export default class Search extends React.Component {
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{flexGrow: 1}}
           ListEmptyComponent={<NoAccountsFound />}
-          renderItem={({item}) => <SearchedAccounts user={item} navigation={this.props.navigation} />}
+          renderItem={({item}) => (
+            <SearchedAccounts user={item} navigation={this.props.navigation} />
+          )}
         />
         {/* </ScrollView> */}
         {/* <TobBarNav /> */}
@@ -242,18 +251,19 @@ class NoAccountsFound extends React.Component {
           position: 'relative',
           top: 300,
         }}>
-        <FontAwesome
-          name="users"
-          size={70}
+        <MaterialCommunityIcons
+          name="account-search-outline"
+          size={90}
           color="#336dab"
-          style={{alignSelf: 'center', opacity: 0.8}}
+          style={{alignSelf: 'center', opacity: 0.6}}
         />
         <Text
           style={{
-            marginTop: 10,
-            fontSize: 14,
-            color: '#000',
+            marginTop: 7,
+            fontSize: 13,
+            color: '#336dab',
             fontFamily: 'Montserrat-Regular',
+            opacity: 0.6,
           }}>
           Users
         </Text>

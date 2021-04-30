@@ -12,6 +12,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { IP } from '../constants';
 import style from './style';
 
 export default class Post extends React.Component {
@@ -37,7 +38,7 @@ export default class Post extends React.Component {
     data.append('caption', this.state.caption);
     data.append('location', this.state.location);
     await axios
-      .post('http://192.168.2.8:3000/v1/postimage', data, {
+      .post(`${IP}/v1/postimage`, data, {
         headers: {
           Accept: '*/*',
           'Content-Type': 'multipart/form-data',

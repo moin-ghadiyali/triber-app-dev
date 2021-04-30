@@ -15,6 +15,7 @@ import {
 import style from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Header } from 'react-navigation-stack';
+import { IP } from '../constants';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class SignUp extends React.Component {
   async signup() {
     if (this.state.username !== '' && this.state.password !== '') {
       console.log(this.state);
-      await fetch('http://192.168.2.8:3000/v1/auth', {
+      await fetch(`${IP}/v1/auth`, {
         body: JSON.stringify({
           username: this.state.username,
           password: this.state.password,

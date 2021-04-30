@@ -520,9 +520,9 @@ export default class Profile extends React.Component {
                     !this.state.followerModalVisible,
                   );
                 }}>
-                <Icon name="ios-arrow-back" size={30} color="#fff" />
+                <Icon name="ios-arrow-back" size={30} color="#336dab" />
               </TouchableOpacity>
-              <Text style={{flex: 9, color: '#fff', fontSize: 17}}>
+              <Text style={{flex: 8.5, color: '#336dab', fontSize: 17}}>
                 Followers
               </Text>
             </View>
@@ -535,10 +535,10 @@ export default class Profile extends React.Component {
                     <Searchbar
                       style={style.searchBar}
                       placeholder="Search..."
-                      placeholderTextColor="#336dab"
+                      placeholderTextColor="#666"
                       iconColor="#336dab"
                       inputStyle={{fontSize: 15}}
-                      theme={{colors: {text: '#336dab', primary: '#336dab'}}}
+                      theme={{colors: {text: '#666', primary: '#336dab'}}}
                       clearIcon
                       clearButtonMode="while-editing"
                     />
@@ -588,9 +588,9 @@ export default class Profile extends React.Component {
                     !this.state.followingModalVisible,
                   );
                 }}>
-                <Icon name="ios-arrow-back" size={30} color="#fff" />
+                <Icon name="ios-arrow-back" size={30} color="#336dab" />
               </TouchableOpacity>
-              <Text style={{flex: 9, color: '#fff', fontSize: 17}}>
+              <Text style={{flex: 8.5, color: '#336dab', fontSize: 17}}>
                 Following
               </Text>
             </View>
@@ -603,10 +603,10 @@ export default class Profile extends React.Component {
                     <Searchbar
                       style={style.searchBar}
                       placeholder="Search..."
-                      placeholderTextColor="#336dab"
+                      placeholderTextColor="#666"
                       iconColor="#336dab"
                       inputStyle={{fontSize: 15}}
-                      theme={{colors: {text: '#336dab', primary: '#336dab'}}}
+                      theme={{colors: {text: '#666', primary: '#336dab'}}}
                       clearIcon
                       clearButtonMode="while-editing"
                     />

@@ -42,22 +42,20 @@ export default style = StyleSheet.create({
     },
     input: {
         color: '#fff',
+        backgroundColor: '#fff',
         justifyContent: 'center',
-        lineHeight: 10,
-        left: -3
+        left: -3,
+        width: '80%',
+        flex: 8,
+        lineHeight: 10
     },
     editView: {
-        marginTop: 10,
+        marginBottom: 5,
         flexDirection: "row",
-        width: '90%',
-        alignSelf: 'flex-start',
+        width: '100%',
+        alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#336dab',
-        borderTopRightRadius: 50,
-        borderBottomRightRadius: 50,
-        borderWidth: 0.8,
-        borderColor: '#336dab',
         padding: 5,
     },
     editView2: {

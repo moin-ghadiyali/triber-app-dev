@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import style from './style';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -20,29 +21,69 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {
+  PinchGestureHandler,
+  State,
+  TapGestureHandler,
+} from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
+import { IP } from '../constants';
 // import { TextInput } from "react-native-paper";
 
 class PostCard extends React.Component {
+  scale = new Animated.Value(1);
   constructor(props) {
     super(props);
-
+    this.doubleTapRef = React.createRef();
     this.state = {
       post: this.props.post,
       like: false,
       shareModal: false,
+      // scale: new Animated.Value(1),
     };
 
     this.openShare = this.openShare.bind(this);
   }
+
+  onPinchEvent() {
+    Animated.event(
+      [
+        {
+          nativeEvent: {scale: this.scale},
+        },
+      ],
+      {
+        useNativeDriver: true,
+      },
+    );
+  }
+
+  onPinchStateChange = (event) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      console.log(this.scale)
+      Animated.spring(this.scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
+  renderLeftActions = (progress, dragX) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [-20, 0, 0, 1],
+    });
+    return <Text>Hello</Text>;
+  };
 
   openShare = (visible) => {
     this.setState({shareModal: visible});
   };
 
   async like() {
-    await fetch('http://192.168.2.8:3000/v1/like', {
+    await fetch(`${IP}/v1/like`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -51,7 +92,7 @@ class PostCard extends React.Component {
       },
       body: JSON.stringify({
         postId: this.state.post._id,
-      })
+      }),
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
@@ -112,25 +153,42 @@ class PostCard extends React.Component {
               />
             </View>
             <View style={style.names}>
-              <Text style={style.name}>{this.state.post.user[0].fullname}</Text>
-              <Text style={style.usernameNew}>
+              <Text style={style.name}>{this.state.post.user[0].username}</Text>
+              {/* <Text style={style.usernameNew}>
                 @{this.state.post.user[0].username}
-              </Text>
+              </Text> */}
             </View>
           </TouchableOpacity>
           {/* <TouchableOpacity style={style.userDataOptions}>
             <Ionicon style={{alignSelf: 'center'}} name="md-more" size={25} />
           </TouchableOpacity> */}
         </View>
-        <TouchableHighlight
-          style={style.image}
-          // onLongPress={() => this.openShare(true)}
-        >
-          <Image
-            style={style.postImage}
-            source={{uri: this.state.post.postImage}}
-          />
-        </TouchableHighlight>
+        {/* <Swipeable renderLeftActions={this.renderLeftActions}> */}
+        {/* <TapGestureHandler
+          waitFor={this.doubleTapRef}
+          onHandlerStateChange={() => alert('hello')}> */}
+        {/* <TapGestureHandler
+          numberOfTaps={2}
+          ref={this.doubleTapRef}
+          // onHandlerStateChange={() => alert('double')}
+          style={style.image}> */}
+          <PinchGestureHandler
+            onGestureEvent={this.onPinchEvent}
+            onHandlerStateChange={this.onPinchStateChange}>
+            <Animated.Image
+              style={{
+                // style.postImage,
+                width: '100%',
+                height: Dimensions.get('window').width,
+                transform: [{scale: this.scale}],
+              }}
+              source={{uri: this.state.post.postImage}}
+              resizeMode="contain"
+            />
+          </PinchGestureHandler>
+        {/* </TapGestureHandler> */}
+        {/* </TapGestureHandler> */}
+        {/* </Swipeable> */}
         <View style={style.postOptions}>
           {/* <MaterialCommunityIcons
             name="heart-outline"
@@ -139,8 +197,8 @@ class PostCard extends React.Component {
             style={style.superLike}
           /> */}
           {like}
-          <Feather
-            name="message-circle"
+          <MaterialCommunityIcons
+            name="comment-text-outline"
             color="#336dab"
             size={27}
             style={style.comment}
@@ -160,6 +218,7 @@ class PostCard extends React.Component {
                 color: '#336dab',
                 fontSize: 13,
                 fontFamily: 'Montserrat-Bold',
+              // marginLeft: 10
               }}>
               @{this.state.post.user[0].username}
             </Text>
@@ -170,6 +229,7 @@ class PostCard extends React.Component {
               textAlign: 'justify',
               fontSize: 13,
               fontFamily: 'Montserrat-Regular',
+              // marginLeft: 10
             }}>
             {this.state.post.caption}
           </Text>
@@ -293,7 +353,7 @@ export default class Dashboard extends React.Component {
   }
 
   async getPosts() {
-    await fetch('http://192.168.2.8:3000/v1/posts', {
+    await fetch(`${IP}/v1/posts`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -351,7 +411,11 @@ export default class Dashboard extends React.Component {
             contentContainerStyle={{flexGrow: 1}}
             ListEmptyComponent={<NoAccountsFound />}
             renderItem={({item}) => (
-              <PostCard post={item} token={this.props.route.params.token} navigation={this.props.navigation} />
+              <PostCard
+                post={item}
+                token={this.props.route.params.token}
+                navigation={this.props.navigation}
+              />
             )}
           />
           {/* <ScrollView showsVerticalScrollIndicator={false}>
@@ -376,20 +440,21 @@ class NoAccountsFound extends React.Component {
           position: 'relative',
           top: 300,
         }}>
-        <MaterialCommunityIcons
-          name="post-outline"
-          size={70}
+        <Fontisto
+          name="photograph"
+          size={90}
           color="#336dab"
-          style={{alignSelf: 'center', opacity: 0.8}}
+          style={{alignSelf: 'center', opacity: 0.6}}
         />
         <Text
           style={{
-            marginTop: 10,
-            fontSize: 14,
-            color: '#000',
+            marginTop: 7,
+            fontSize: 13,
+            color: '#336dab',
             fontFamily: 'Montserrat-Regular',
+            opacity: 0.6
           }}>
-          Posts
+          No Posts Yet
         </Text>
       </View>
     );

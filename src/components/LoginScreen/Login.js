@@ -12,6 +12,7 @@ import {
 import style from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {TextInput} from 'react-native-paper';
+import {IP} from '../constants';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class Login extends React.Component {
   async login() {
     if (this.state.username !== '' && this.state.password !== '') {
       console.log(this.state);
-      await fetch('http://192.168.2.8:3000/v1/login', {
+      await fetch(`${IP}/v1/login`, {
         body: JSON.stringify({
           username: this.state.username,
           password: this.state.password,

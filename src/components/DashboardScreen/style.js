@@ -146,13 +146,14 @@ export default style = StyleSheet.create({
     names: {
         flex: 9,
         flexDirection: "column",
-        paddingLeft: 10,
+        paddingLeft: 6,
         justifyContent: 'center'
     },
     name: {
         fontSize: 15,
         color: '#000',
         fontFamily: ContentFont,
+        fontWeight: '500'
     },
     usernameNew: {
         fontSize: 10,
@@ -172,7 +173,7 @@ export default style = StyleSheet.create({
     },
     like: {
         position: 'relative',
-        marginLeft: 20,
+        marginLeft: 15,
     },
     comment: {
         // width: 40,
@@ -192,7 +193,7 @@ export default style = StyleSheet.create({
     caption: {
         position: 'relative',
         top: 7,
-        marginLeft: 10,
+        marginLeft: 15,
         marginRight: 10,
         marginBottom: 15,
     },
