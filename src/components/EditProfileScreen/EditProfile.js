@@ -18,6 +18,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import style from './style';
 import {TextInput} from 'react-native-paper';
+import { customFontRegular } from '../Font';
 
 export default class EditProfile extends React.Component {
   constructor(props) {
@@ -163,7 +164,7 @@ export default class EditProfile extends React.Component {
               alignSelf: 'center',
               fontSize: 20,
               left: 10,
-              fontFamily: 'Montserrat-Regular',
+              fontFamily: customFontRegular,
             }}>
             Edit Profile
           </Text>

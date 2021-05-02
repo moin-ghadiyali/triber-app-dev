@@ -13,6 +13,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { IP } from '../constants';
+import { customFontRegular } from '../Font';
 import style from './style';
 
 export default class Post extends React.Component {
@@ -131,7 +132,7 @@ export default class Post extends React.Component {
               alignSelf: 'center',
               fontSize: 20,
               left: 10,
-              fontFamily: 'Montserrat-Regular',
+              fontFamily: customFontRegular,
             }}>
             Post Image
           </Text>

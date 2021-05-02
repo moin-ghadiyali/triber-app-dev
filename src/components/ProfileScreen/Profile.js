@@ -638,7 +638,7 @@ export default class Profile extends React.Component {
                   onPress={() => this.props.navigation.pop()}>
                   <Icon name="ios-arrow-back" size={30} color="#fff" />
                 </TouchableOpacity>
-                {/* <Text style={{ flex: 8, color: '#fff', fontFamily: 'Montserrat-Regular' }}>moinghadiyali</Text> */}
+                {/* <Text style={{ flex: 8, color: '#fff', fontFamily: customFontRegular }}>moinghadiyali</Text> */}
                 {/* <TouchableOpacity style={style.edit}>
                                     <AntDesign name='edit' size={30} color='#fff' />
                                 </TouchableOpacity> */}

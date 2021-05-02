@@ -1,3 +1,4 @@
 // export default ContentFont = 'Montserrat-Regular';
 export default ContentFont = 'Raleway-Regular';
-export const customFont = "EBGaramond-Medium";
+export const customFontRegular = "PTSans-Regular";
+export const customFontBold = "PTSans-Bold";

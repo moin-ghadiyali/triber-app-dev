@@ -28,8 +28,9 @@ import {
   State,
   TapGestureHandler,
 } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
-import { IP } from '../constants';
+import Animated, {Easing} from 'react-native-reanimated';
+import {IP} from '../constants';
+import {customFontBold, customFontRegular} from '../Font';
 // import { TextInput } from "react-native-paper";
 
 class PostCard extends React.Component {
@@ -41,10 +42,28 @@ class PostCard extends React.Component {
       post: this.props.post,
       like: false,
       shareModal: false,
-      // scale: new Animated.Value(1),
+      scaleLikeAnimated: new Animated.Value(1),
     };
 
     this.openShare = this.openShare.bind(this);
+  }
+
+  scaleLikeAnimation() {
+    Animated.timing(this.state.scaleLikeAnimated, {
+      toValue: 1.4,
+      timing: 10,
+      duration: 90,
+      useNativeDriver: true,
+      easing: Easing.bounce,
+    }).start(() => {
+      Animated.timing(this.state.scaleLikeAnimated, {
+        toValue: 1,
+        timing: 10,
+        duration: 90,
+        useNativeDriver: true,
+        easing: Easing.bounce,
+      }).start();
+    });
   }
 
   onPinchEvent() {
@@ -62,7 +81,7 @@ class PostCard extends React.Component {
 
   onPinchStateChange = (event) => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
-      console.log(this.scale)
+      console.log(this.scale);
       Animated.spring(this.scale, {
         toValue: 1,
         useNativeDriver: true,
@@ -110,29 +129,37 @@ class PostCard extends React.Component {
       .catch((e) => {
         console.log(e);
       });
+    this.scaleLikeAnimation();
   }
 
   render() {
     let like;
+    const scaleAnimationStyle = {
+      transform: [{scale: this.state.scaleLikeAnimated}],
+    };
     if (this.state.like == false) {
       like = (
-        <MaterialCommunityIcons
-          name="heart-outline"
-          color="#336dab"
-          size={27}
-          style={style.like}
-          onPress={() => this.like()}
-        />
+        <Animated.View style={[scaleAnimationStyle]}>
+          <MaterialCommunityIcons
+            name="heart-outline"
+            color="#336dab"
+            size={27}
+            style={style.like}
+            onPress={() => this.like()}
+          />
+        </Animated.View>
       );
     } else {
       like = (
-        <MaterialCommunityIcons
-          name="heart"
-          color="#336dab"
-          size={27}
-          style={style.like}
-          onPress={() => this.like()}
-        />
+        <Animated.View style={[scaleAnimationStyle]}>
+          <MaterialCommunityIcons
+            name="heart"
+            color="#336dab"
+            size={27}
+            style={style.like}
+            onPress={() => this.like()}
+          />
+        </Animated.View>
       );
     }
     return (
@@ -172,20 +199,20 @@ class PostCard extends React.Component {
           ref={this.doubleTapRef}
           // onHandlerStateChange={() => alert('double')}
           style={style.image}> */}
-          <PinchGestureHandler
-            onGestureEvent={this.onPinchEvent}
-            onHandlerStateChange={this.onPinchStateChange}>
-            <Animated.Image
-              style={{
-                // style.postImage,
-                width: '100%',
-                height: Dimensions.get('window').width,
-                transform: [{scale: this.scale}],
-              }}
-              source={{uri: this.state.post.postImage}}
-              resizeMode="contain"
-            />
-          </PinchGestureHandler>
+        <PinchGestureHandler
+          onGestureEvent={this.onPinchEvent}
+          onHandlerStateChange={this.onPinchStateChange}>
+          <Animated.Image
+            style={{
+              // style.postImage,
+              width: '100%',
+              height: Dimensions.get('window').width,
+              transform: [{scale: this.scale}],
+            }}
+            source={{uri: this.state.post.postImage}}
+            resizeMode="contain"
+          />
+        </PinchGestureHandler>
         {/* </TapGestureHandler> */}
         {/* </TapGestureHandler> */}
         {/* </Swipeable> */}
@@ -217,8 +244,8 @@ class PostCard extends React.Component {
               style={{
                 color: '#336dab',
                 fontSize: 13,
-                fontFamily: 'Montserrat-Bold',
-              // marginLeft: 10
+                fontFamily: customFontBold,
+                // marginLeft: 10
               }}>
               @{this.state.post.user[0].username}
             </Text>
@@ -228,7 +255,7 @@ class PostCard extends React.Component {
               color: '#000',
               textAlign: 'justify',
               fontSize: 13,
-              fontFamily: 'Montserrat-Regular',
+              fontFamily: customFontRegular,
               // marginLeft: 10
             }}>
             {this.state.post.caption}
@@ -451,8 +478,8 @@ class NoAccountsFound extends React.Component {
             marginTop: 7,
             fontSize: 13,
             color: '#336dab',
-            fontFamily: 'Montserrat-Regular',
-            opacity: 0.6
+            fontFamily: customFontRegular,
+            opacity: 0.6,
           }}>
           No Posts Yet
         </Text>

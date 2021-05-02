@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import ContentFont, { customFont } from '../Font';
+import ContentFont, { customFontRegular } from '../Font';
 
 export default style = StyleSheet.create({
     splashscreen: {
@@ -18,7 +18,7 @@ export default style = StyleSheet.create({
     },
     triber_text: {
         fontSize: 70,
-        fontFamily: customFont,
+        fontFamily: customFontRegular,
         color: '#ffffff'
     },
     quote: {
@@ -31,7 +31,7 @@ export default style = StyleSheet.create({
         textAlign: "left",
         lineHeight: 40,
         color: '#ffffff',
-        fontFamily: customFont
+        fontFamily: customFontRegular
     },
     create_account_view: {
         position: "relative",
@@ -56,7 +56,7 @@ export default style = StyleSheet.create({
         position: "relative",
         fontSize: 20,
         color: '#336DAB',
-        fontFamily: customFont
+        fontFamily: customFontRegular
     },
     login_view: {
         position: "absolute",
@@ -70,7 +70,7 @@ export default style = StyleSheet.create({
         right: 5,
         bottom: 5,
         color: '#336DAB',
-        fontFamily: customFont
+        fontFamily: customFontRegular
     },
     login_button: {
         padding: 15,
@@ -88,6 +88,6 @@ export default style = StyleSheet.create({
     login_text: {
         fontSize: 20,
         color: '#ffffff',
-        fontFamily: customFont
+        fontFamily: customFontRegular
     }
 })

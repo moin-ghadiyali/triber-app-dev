@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-import ContentFont from '../Font';
+import ContentFont, { customFontRegular } from '../Font';
 
 export default style = StyleSheet.create({
     search: {
@@ -26,7 +26,7 @@ export default style = StyleSheet.create({
         backgroundColor: '#fff',
         height: 60,
         color: '#666',
-        fontFamily: ContentFont,
+        fontFamily: customFontRegular,
         zIndex: 100,
     },
     tobNavBar: {

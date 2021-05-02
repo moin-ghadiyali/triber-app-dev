@@ -13,6 +13,7 @@ import style from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {TextInput} from 'react-native-paper';
 import {IP} from '../constants';
+import { customFontRegular } from '../Font';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -114,7 +115,7 @@ export default class Login extends React.Component {
                   this.props.navigation.navigate('ForgotPassword')
                 }>
                 <Text
-                  style={{color: '#ffffff', fontFamily: 'Montserrat-Regular'}}>
+                  style={{color: '#ffffff', fontFamily: customFontRegular}}>
                   Forgot Passcode?
                 </Text>
               </TouchableOpacity>
@@ -122,7 +123,7 @@ export default class Login extends React.Component {
                 style={style.buttons}
                 onPress={() => this.props.navigation.navigate('SignUp')}>
                 <Text
-                  style={{color: '#ffffff', fontFamily: 'Montserrat-Regular'}}>
+                  style={{color: '#ffffff', fontFamily: customFontRegular}}>
                   Don't have an account? Join now!
                 </Text>
               </TouchableOpacity>

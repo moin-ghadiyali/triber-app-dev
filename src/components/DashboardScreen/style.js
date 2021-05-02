@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-import ContentFont from '../Font';
+import ContentFont, { customFontRegular } from '../Font';
 
 const postHeight = Dimensions.get('window').width;
 
@@ -82,7 +82,7 @@ export default style = StyleSheet.create({
         textAlign: 'left',
         paddingLeft: 10,
         fontSize: 25,
-        fontFamily: ContentFont
+        fontFamily: customFontRegular
     },
     message: {
         flex: 1,
@@ -152,13 +152,13 @@ export default style = StyleSheet.create({
     name: {
         fontSize: 15,
         color: '#000',
-        fontFamily: ContentFont,
+        fontFamily: customFontRegular,
         fontWeight: '500'
     },
     usernameNew: {
         fontSize: 10,
         color: '#000',
-        fontFamily: ContentFont,
+        fontFamily: customFontRegular,
     },
     postOptions: {
         flex: 1,

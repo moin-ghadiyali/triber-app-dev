@@ -8,6 +8,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import style from './style';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Searchbar } from 'react-native-paper';
+import { customFontRegular } from '../Font';
 
 export default class Chat extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class Chat extends React.Component {
                     <TouchableOpacity style={style.back} onPress={() => this.props.navigation.pop()}>
                         <Icon name='ios-arrow-back' size={30} color='#fff' />
                     </TouchableOpacity>
-                    <Text style={{ flex: 8, color: '#fff', alignSelf: 'center', fontSize: 17, left: 10, fontFamily: 'Montserrat-Regular' }}>Direct</Text>
+                    <Text style={{ flex: 8, color: '#fff', alignSelf: 'center', fontSize: 17, left: 10, fontFamily: customFontRegular }}>Direct</Text>
                     <TouchableOpacity style={style.groupAdd}>
                         <AntDesign name='addusergroup' size={30} color='#fff' />
                     </TouchableOpacity>
@@ -146,12 +147,12 @@ export class UserChat extends React.Component {
                             <Image source={require('./images/selfprofilepic.jpg')} style={style.pic} />
                         </View>
                         <View style={style.info}>
-                            <Text style={{ fontSize: 12, color: '#000', fontFamily: 'Montserrat-Regular' }}>moinghadiyali</Text>
-                            <Text numberOfLines={1} style={{ fontSize: 12, color: 'rgba(0,0,0,0.5)', fontFamily: 'Montserrat-Regular' }}>Hello there i amnew akwnlnf awdafnlanlawdlan awlnalwfnalwnafd awdf </Text>
-                            <Text style={{ fontSize: 10, color: 'rgba(0,0,0,0.5)', fontFamily: 'Montserrat-Regular' }}>16m</Text>
+                            <Text style={{ fontSize: 12, color: '#000', fontFamily: customFontRegular }}>moinghadiyali</Text>
+                            <Text numberOfLines={1} style={{ fontSize: 12, color: 'rgba(0,0,0,0.5)', fontFamily: customFontRegular }}>Hello there i amnew akwnlnf awdafnlanlawdlan awlnalwfnalwnafd awdf </Text>
+                            <Text style={{ fontSize: 10, color: 'rgba(0,0,0,0.5)', fontFamily: customFontRegular }}>16m</Text>
                         </View>
                         <View style={style.streak}>
-                            <Text style={{ fontSize: 12, fontFamily: 'Montserrat-Regular' }}>10</Text>
+                            <Text style={{ fontSize: 12, fontFamily: customFontRegular }}>10</Text>
                             <Image source={require('./images/streat.png')} style={style.streakImage} />
                         </View>
                     </TouchableOpacity>

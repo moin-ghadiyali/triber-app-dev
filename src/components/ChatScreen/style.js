@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-import ContentFont from '../Font';
+import ContentFont, { customFontRegular } from '../Font';
 
 export default style = StyleSheet.create({
     chat: {
@@ -58,7 +58,7 @@ export default style = StyleSheet.create({
         borderRadius: 10,
         borderColor: '#336dab',
         alignSelf: 'center',
-        fontFamily: ContentFont,
+        fontFamily: customFontRegular,
         color: '#336dab',
     },
     userChats: {

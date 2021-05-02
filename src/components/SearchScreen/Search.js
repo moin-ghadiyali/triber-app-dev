@@ -17,6 +17,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import style from './style';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import { IP } from '../constants';
+import { customFontRegular } from '../Font';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -224,7 +225,7 @@ class SearchedAccounts extends React.Component {
             style={{
               fontSize: 15,
               color: '#000',
-              fontFamily: 'Montserrat-Regular',
+              fontFamily: customFontRegular,
             }}>
             {this.props.user.fullname}
           </Text>
@@ -232,7 +233,7 @@ class SearchedAccounts extends React.Component {
             style={{
               fontSize: 10,
               color: '#000',
-              fontFamily: 'Montserrat-Regular',
+              fontFamily: customFontRegular,
             }}>
             @{this.props.user.username}
           </Text>
@@ -262,7 +263,7 @@ class NoAccountsFound extends React.Component {
             marginTop: 7,
             fontSize: 13,
             color: '#336dab',
-            fontFamily: 'Montserrat-Regular',
+            fontFamily: customFontRegular,
             opacity: 0.6,
           }}>
           Users
@@ -276,7 +277,7 @@ class TobBarNav extends React.Component {
   render() {
     return (
       <Tab.Navigator
-        style={{position: 'relative', fontFamily: 'Montserrat-Regular'}}
+        style={{position: 'relative', fontFamily: customFontRegular}}
         initialRouteName="Top"
         tabBarOptions={{
           style: {

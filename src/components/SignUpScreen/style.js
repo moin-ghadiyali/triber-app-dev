@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-import ContentFont from '../Font';
+import ContentFont, { customFontRegular } from '../Font';
 
 export default style = StyleSheet.create({
     signup: {
@@ -29,7 +29,7 @@ export default style = StyleSheet.create({
         left: 25,
         top: 60,
         color: '#336DAB',
-        fontFamily: ContentFont
+        fontFamily: customFontRegular
     },
     form: {
         position: 'relative',
@@ -50,7 +50,7 @@ export default style = StyleSheet.create({
         fontSize: 17,
         color: '#fff',
         height: 70,
-        fontFamily: ContentFont
+        fontFamily: customFontRegular
     },
     signup_button: {
         position: "absolute",
