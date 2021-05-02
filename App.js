@@ -177,8 +177,6 @@ export default class App extends Component {
             component={Dashboard}
             options={{...MyTransition}}
           />
-          {/* <Stack.Screen name='Chat' component={Chat} options={{ ...MyTransition }} />
-          <Stack.Screen name='ChatRoom' component={ChatRoom} options={{ ...MyTransition }} /> */}
           <Stack.Screen
             name="Profile"
             component={Profile}

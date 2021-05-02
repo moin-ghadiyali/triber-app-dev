@@ -128,7 +128,7 @@ export default class Post extends React.Component {
           <Text
             style={{
               flex: 8,
-              color: '#fff',
+              color: '#336dab',
               alignSelf: 'center',
               fontSize: 20,
               left: 10,
@@ -144,7 +144,7 @@ export default class Post extends React.Component {
               alignSelf: 'center',
               justifyContent: 'center',
             }}>
-            <AntDesign name="check" size={30} color="#fff" />
+            <AntDesign name="check" size={30} color="#336dab" />
           </TouchableOpacity>
         </View>
         <View style={style.content}>

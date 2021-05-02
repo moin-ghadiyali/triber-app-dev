@@ -285,7 +285,7 @@ export default class Profile extends React.Component {
       translateXDataAnimated: new Animated.Value(500),
       scaleEditButtonAnimated: new Animated.Value(0),
     };
-
+    console.log(this.props.route.params.user);
     this.setFollowerModalVisible = this.setFollowerModalVisible.bind(this);
     this.setFollowingModalVisible = this.setFollowingModalVisible.bind(this);
     this.toggleFollowIcon = this.toggleFollowIcon.bind(this);
@@ -470,7 +470,7 @@ export default class Profile extends React.Component {
         </TouchableOpacity>
       );
     } else {
-      edit = <View></View>
+      edit = <View></View>;
       if (this.state.toggleFollowIconBool == false) {
         icon = (
           <SimpleLineIcons
