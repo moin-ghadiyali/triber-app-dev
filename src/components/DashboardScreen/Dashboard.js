@@ -40,7 +40,7 @@ class PostCard extends React.Component {
     this.doubleTapRef = React.createRef();
     this.state = {
       profileImage: this.props.profileImage,
-      post: '../../../public/'.concat(this.props.post),
+      post: this.props.post,
       like: false,
       shareModal: false,
       commentModel: false,
@@ -50,6 +50,10 @@ class PostCard extends React.Component {
     this.openShare = this.openShare.bind(this);
     this.scaleLikeAnimation = this.scaleLikeAnimation.bind(this);
   }
+
+  // componentDidMount() {
+  //   this.setState(() => {});
+  // }
 
   scaleLikeAnimation() {
     Animated.timing(this.state.scaleLikeAnimated, {
@@ -140,6 +144,7 @@ class PostCard extends React.Component {
   }
 
   render() {
+    let url = `../../../public/${this.props.post.postImage}`.toString();
     let like;
     const scaleAnimationStyle = {
       transform: [{scale: this.state.scaleLikeAnimated}],
@@ -213,11 +218,7 @@ class PostCard extends React.Component {
               height: Dimensions.get('window').width,
               transform: [{scale: this.scale}],
             }}
-            source={{
-              uri: Image.resolveAssetSource(
-                `../../../public/${this.state.post.postImage}`,
-              ),
-            }}
+            source={{uri: url}}
             resizeMode="contain"
           />
         </PinchGestureHandler>

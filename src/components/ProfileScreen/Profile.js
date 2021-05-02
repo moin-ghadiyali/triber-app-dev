@@ -44,7 +44,7 @@ export class Posts extends React.Component {
           flexWrap: 'wrap',
           backgroundColor: '#fff',
         }}>
-        <ShortPostCards urlNew={pic1} route={this.routePost} />
+        <ShortPostCards urlNew={pic1} />
         <ShortPostCards urlNew={pic2} />
         <ShortPostCards urlNew={pic3} />
         <ShortPostCards urlNew={pic4} />
