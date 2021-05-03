@@ -302,7 +302,17 @@ class PostCard extends React.Component {
                 />
               </View>
               <View style={{flex: 9}}>
-                <Text></Text>
+                <View style={{flex: 1, flexDirection: 'row' }}>
+                <Image
+                  source={{
+                    uri:
+                      'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
+                  }}
+                  size={25}
+                  style={{borderRadius: 100}}
+                />
+                <Text>Very nice picture</Text>
+                </View>
               </View>
             </View>
           </View>
@@ -515,7 +525,7 @@ export default class Dashboard extends React.Component {
                 id: this.props.route.params.user._id,
                 user: this.props.route.params.user,
                 self: true,
-                token: this.props.route.params.token
+                token: this.props.route.params.token,
               })
             }>
             <Image
