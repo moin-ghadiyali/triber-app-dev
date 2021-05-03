@@ -31,9 +31,38 @@ import {customFontRegular} from '../Font';
 const Tab = createMaterialTopTabNavigator();
 
 export class Posts extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      posts: '',
+    };
+  }
+
+  componentDidMount() {
+    fetch(`${IP}/v1/posts`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: this.props.token,
+      },
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        this.setState({
+          posts: jsonResponse.result,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   routePost = () => {
     return this.props.navigation.navigate('Post');
   };
+
   render() {
     return (
       <View
@@ -44,7 +73,7 @@ export class Posts extends React.Component {
           backgroundColor: '#fff',
         }}>
         <FlatList
-          data={this.props.posts}
+          data={this.state.posts}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{flexGrow: 1}}
           ListEmptyComponent={<NoPostsFound />}
@@ -123,12 +152,14 @@ class Tags extends React.Component {
 class ShortPostCards extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props.urlNew);
   }
   render() {
     return (
       <TouchableOpacity style={style.shortPostCards} onPress={this.props.route}>
         <Image
-          source={this.props.urlNew}
+          source={{uri: this.props.urlNew}}
           style={{width: '100%', height: '100%'}}
         />
       </TouchableOpacity>
@@ -325,7 +356,6 @@ export default class Profile extends React.Component {
       translateXDataAnimated: new Animated.Value(500),
       scaleEditButtonAnimated: new Animated.Value(0),
     };
-    console.log(this.props.route);
     this.setFollowerModalVisible = this.setFollowerModalVisible.bind(this);
     this.setFollowingModalVisible = this.setFollowingModalVisible.bind(this);
     this.toggleFollowIcon = this.toggleFollowIcon.bind(this);
@@ -355,11 +385,9 @@ export default class Profile extends React.Component {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
-        console.log(jsonResponse);
         this.setState({
           user: jsonResponse.result[0],
         });
-        console.log(this.state.user);
       })
       .catch((e) => {
         console.log(e);
@@ -707,9 +735,7 @@ export default class Profile extends React.Component {
                                 </TouchableOpacity> */}
                 <TouchableOpacity
                   style={style.setting}
-                  onPress={() =>
-                    this.props.navigation.navigate('Login')
-                  }>
+                  onPress={() => this.props.navigation.navigate('Login')}>
                   <MaterialCommunityIcons
                     name="logout"
                     size={30}
@@ -798,37 +824,6 @@ export default class Profile extends React.Component {
 }
 
 class TobBarNav extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      user: '',
-    };
-  }
-  componentDidMount() {
-    fetch(`${IP}/v1/profile`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        token: this.props.token,
-      },
-      body: JSON.stringify({
-        id: this.props.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        console.log(jsonResponse);
-        this.setState({
-          user: jsonResponse.result[0],
-        });
-        console.log(this.state.user);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
   render() {
     return (
       <Tab.Navigator
@@ -851,7 +846,6 @@ class TobBarNav extends React.Component {
         <Tab.Screen
           name="Posts"
           component={Posts}
-          initialParams={this.state.user.posts}
           options={{
             tabBarLabel: 'Posts',
             tabBarIcon: () => <Feather name="grid" size={20} color="#336dab" />,
