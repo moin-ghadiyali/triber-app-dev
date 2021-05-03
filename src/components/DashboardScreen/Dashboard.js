@@ -42,13 +42,16 @@ class PostCard extends React.Component {
       profileImage: this.props.profileImage,
       post: this.props.post,
       like: false,
+      bookmark: false,
       shareModal: false,
       commentModel: false,
+      scaleLikeAnimated: new Animated.Value(1),
       scaleLikeAnimated: new Animated.Value(1),
     };
     console.log(this.state.post.postImage);
     this.openShare = this.openShare.bind(this);
     this.scaleLikeAnimation = this.scaleLikeAnimation.bind(this);
+    this.scaleBookmarkAnimation = this.scaleBookmarkAnimation.bind(this);
   }
 
   // componentDidMount() {
@@ -64,6 +67,24 @@ class PostCard extends React.Component {
       easing: Easing.ease,
     }).start(() => {
       Animated.timing(this.state.scaleLikeAnimated, {
+        toValue: 1,
+        // timing: 10,
+        duration: 100,
+        useNativeDriver: true,
+        easing: Easing.ease,
+      }).start();
+    });
+  }
+
+  scaleBookmarkAnimation() {
+    Animated.timing(this.state.scaleBookmarkAnimated, {
+      toValue: 1.4,
+      // timing: 10,
+      duration: 100,
+      useNativeDriver: true,
+      easing: Easing.ease,
+    }).start(() => {
+      Animated.timing(this.state.scaleBookmarkAnimated, {
         toValue: 1,
         // timing: 10,
         duration: 100,
@@ -143,6 +164,30 @@ class PostCard extends React.Component {
     this.scaleLikeAnimation();
   }
 
+  async bookmark() {
+    await fetch(`${IP}/v1/bookmark`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: this.props.token,
+      },
+      body: JSON.stringify({
+        postId: this.state.post._id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        this.setState({
+          bookmark: !this.state.bookmark,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    this.scaleLikeAnimation();
+  }
+
   render() {
     let url = `../../../public/${this.props.post.postImage}`.toString();
     let like;
@@ -168,6 +213,28 @@ class PostCard extends React.Component {
           size={27}
           style={style.like}
           onPress={() => this.like()}
+        />
+      );
+    }
+    let bookmark;
+    if (this.state.bookmark == false) {
+      bookmark = (
+        <FontAwesome
+          name="bookmark-o"
+          color="#336dab"
+          size={27}
+          style={style.save}
+          onPress={() => this.bookmark()}
+        />
+      );
+    } else {
+      bookmark = (
+        <FontAwesome
+          name="bookmark"
+          color="#336dab"
+          size={27}
+          style={style.save}
+          onPress={() => this.bookmark()}
         />
       );
     }
@@ -243,12 +310,7 @@ class PostCard extends React.Component {
             }
           />
           {/* <Feather name="share" color='#336dab' size={25} style={style.share} /> */}
-          <FontAwesome
-            name="bookmark-o"
-            color="#336dab"
-            size={27}
-            style={style.save}
-          />
+          {bookmark}
         </View>
         <View style={style.caption}>
           <TouchableOpacity>
@@ -302,16 +364,16 @@ class PostCard extends React.Component {
                 />
               </View>
               <View style={{flex: 9}}>
-                <View style={{flex: 1, flexDirection: 'row' }}>
-                <Image
-                  source={{
-                    uri:
-                      'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
-                  }}
-                  size={25}
-                  style={{borderRadius: 100}}
-                />
-                <Text>Very nice picture</Text>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                  <Image
+                    source={{
+                      uri:
+                        'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
+                    }}
+                    size={25}
+                    style={{borderRadius: 100}}
+                  />
+                  <Text>Very nice picture</Text>
                 </View>
               </View>
             </View>

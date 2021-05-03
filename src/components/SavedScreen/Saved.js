@@ -17,6 +17,25 @@ import {Grid, Col} from 'react-native-easy-grid';
 import {customFontRegular} from '../Font';
 
 export default class Saved extends React.Component {
+  componentDidMount() {
+    // await fetch(`${IP}/v1/bookmark`, {
+    //     method: 'GET',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //       token: this.props.token,
+    //     },
+    //   })
+    //     .then((response) => response.json())
+    //     .then((jsonResponse) => {
+    //       this.setState({
+    //         bookmark: !this.state.bookmark,
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+  }  
   renderInputs() {
     return (
       <View>
