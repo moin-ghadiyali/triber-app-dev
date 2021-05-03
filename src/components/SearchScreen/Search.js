@@ -128,7 +128,7 @@ export default class Search extends React.Component {
           contentContainerStyle={{flexGrow: 1}}
           ListEmptyComponent={<NoAccountsFound />}
           renderItem={({item}) => (
-            <SearchedAccounts user={item} navigation={this.props.navigation} />
+            <SearchedAccounts user={item} navigation={this.props.navigation} token={this.props.route.params.token} />
           )}
         />
         {/* </ScrollView> */}
@@ -209,8 +209,10 @@ class SearchedAccounts extends React.Component {
       <TouchableOpacity
         onPress={() =>
           this.props.navigation.navigate('Profile', {
+            id: this.props.user._id,
             user: this.props.user,
             self: false,
+            token: this.props.token
           })
         }
         style={style.searchedUser}>

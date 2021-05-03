@@ -12,17 +12,21 @@ import {
   TouchableHighlight,
   Alert,
   ImageBackground,
+  FlatList,
 } from 'react-native';
 import {createBottomTabNavigator, createAppContainer} from 'react-navigation';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import style from './style';
 import {Searchbar} from 'react-native-paper';
+import axios from 'axios';
+import {IP} from '../constants';
+import {customFontRegular} from '../Font';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -31,11 +35,6 @@ export class Posts extends React.Component {
     return this.props.navigation.navigate('Post');
   };
   render() {
-    let pic1 = require('./images/postpic1.jpg');
-    let pic2 = require('./images/profilepic2.jpg');
-    let pic3 = require('./images/profilepic3.jpg');
-    let pic4 = require('./images/profilepic4.jpg');
-    let pic5 = require('./images/profilepic5.jpg');
     return (
       <View
         style={{
@@ -44,7 +43,14 @@ export class Posts extends React.Component {
           flexWrap: 'wrap',
           backgroundColor: '#fff',
         }}>
-        <ShortPostCards urlNew={pic1} />
+        <FlatList
+          data={this.props.posts}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{flexGrow: 1}}
+          ListEmptyComponent={<NoPostsFound />}
+          renderItem={({item}) => <ShortPostCards urlNew={item.postImage} />}
+        />
+        {/* <ShortPostCards urlNew={pic1} />
         <ShortPostCards urlNew={pic2} />
         <ShortPostCards urlNew={pic3} />
         <ShortPostCards urlNew={pic4} />
@@ -54,7 +60,38 @@ export class Posts extends React.Component {
         <ShortPostCards urlNew={pic4} />
         <ShortPostCards urlNew={pic5} />
         <ShortPostCards urlNew={pic2} />
-        <ShortPostCards urlNew={pic3} />
+        <ShortPostCards urlNew={pic3} /> */}
+      </View>
+    );
+  }
+}
+
+class NoPostsFound extends React.Component {
+  render() {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          position: 'relative',
+          justifyContent: 'center',
+          alignSelf: 'center',
+        }}>
+        <Fontisto
+          name="photograph"
+          size={90}
+          color="#336dab"
+          style={{alignSelf: 'center', opacity: 0.6}}
+        />
+        <Text
+          style={{
+            marginTop: 7,
+            fontSize: 13,
+            color: '#336dab',
+            fontFamily: customFontRegular,
+            opacity: 0.6,
+          }}>
+          No Posts Yet
+        </Text>
       </View>
     );
   }
@@ -140,7 +177,7 @@ class UserFollowCard extends React.Component {
                   backgroundColor: '#336dab',
                 }}>
                 <Text style={{color: '#fff', fontSize: 15}}>
-                  Remove Moin Ghadiyali?
+                  Remove Bhavin Bhanushali?
                 </Text>
               </View>
               <View
@@ -163,7 +200,7 @@ class UserFollowCard extends React.Component {
                 />
                 <Text
                   style={{textAlign: 'center', color: '#fff', marginTop: 10}}>
-                  Triber won't tell @moinghadiyali they were removed from your
+                  GOZZBY won't tell @bhavin.bhanushali they were removed from your
                   followers.
                 </Text>
               </View>
@@ -194,8 +231,8 @@ class UserFollowCard extends React.Component {
             />
           </View>
           <View style={style.userInfoNames}>
-            <Text style={{fontSize: 16, color: '#000'}}>Moin Ghadiyali</Text>
-            <Text style={{fontSize: 12, color: '#000'}}>@moinghadiyali</Text>
+            <Text style={{fontSize: 16, color: '#000'}}>Bhavin Bhanushali</Text>
+            <Text style={{fontSize: 12, color: '#000'}}>@bhavin.bhanushali</Text>
           </View>
           <View style={style.followButtonView}>
             <TouchableOpacity
@@ -260,8 +297,8 @@ class UserFollowingCard extends React.Component {
           />
         </View>
         <View style={style.userInfoNames}>
-          <Text style={{fontSize: 16, color: '#000'}}>Moin Ghadiyali</Text>
-          <Text style={{fontSize: 12, color: '#000'}}>@moinghadiyali</Text>
+          <Text style={{fontSize: 16, color: '#000'}}>Bhavin Bhanushali</Text>
+          <Text style={{fontSize: 12, color: '#000'}}>@bhavin.bhanushali</Text>
         </View>
         <View style={style.followButtonView}>{followStatus}</View>
       </TouchableOpacity>
@@ -273,7 +310,8 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.route.params.user,
+      id: this.props.route.params.id,
+      user: '',
       self: this.props.route.params.self,
       followerModalVisible: false,
       followingModalVisible: false,
@@ -285,7 +323,7 @@ export default class Profile extends React.Component {
       translateXDataAnimated: new Animated.Value(500),
       scaleEditButtonAnimated: new Animated.Value(0),
     };
-    console.log(this.props.route.params.user);
+    console.log(this.props.route);
     this.setFollowerModalVisible = this.setFollowerModalVisible.bind(this);
     this.setFollowingModalVisible = this.setFollowingModalVisible.bind(this);
     this.toggleFollowIcon = this.toggleFollowIcon.bind(this);
@@ -302,6 +340,28 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
+    fetch(`${IP}/v1/profile`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: this.props.route.params.token,
+      },
+      body: JSON.stringify({
+        id: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        console.log(jsonResponse);
+        this.setState({
+          user: jsonResponse.result[0],
+        });
+        console.log(this.state.user);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     this.scaleFollowAnimation();
     this.scaleMessageAnimation();
     this.scaleProfilePicAnimation();
@@ -458,6 +518,7 @@ export default class Profile extends React.Component {
             onTouchEndCapture={() =>
               this.props.navigation.navigate('EditProfile', {
                 user: this.state.user,
+                token: this.props.route.params.token
               })
             }>
             <MaterialCommunityIcons
@@ -638,7 +699,7 @@ export default class Profile extends React.Component {
                   onPress={() => this.props.navigation.pop()}>
                   <Icon name="ios-arrow-back" size={30} color="#fff" />
                 </TouchableOpacity>
-                {/* <Text style={{ flex: 8, color: '#fff', fontFamily: customFontRegular }}>moinghadiyali</Text> */}
+                {/* <Text style={{ flex: 8, color: '#fff', fontFamily: customFontRegular }}>bhavin.bhanushali</Text> */}
                 {/* <TouchableOpacity style={style.edit}>
                                     <AntDesign name='edit' size={30} color='#fff' />
                                 </TouchableOpacity> */}
@@ -716,7 +777,10 @@ export default class Profile extends React.Component {
                 </View>
               </View>
             </ImageBackground>
-            <TobBarNav />
+            <TobBarNav
+              token={this.props.route.params.token}
+              id={this.props.route.params.id}
+            />
           </ScrollView>
           {edit}
         </View>
@@ -726,6 +790,37 @@ export default class Profile extends React.Component {
 }
 
 class TobBarNav extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: '',
+    };
+  }
+  componentDidMount() {
+    fetch(`${IP}/v1/profile`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: this.props.token,
+      },
+      body: JSON.stringify({
+        id: this.props.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        console.log(jsonResponse);
+        this.setState({
+          user: jsonResponse.result[0],
+        });
+        console.log(this.state.user);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
   render() {
     return (
       <Tab.Navigator
@@ -748,6 +843,7 @@ class TobBarNav extends React.Component {
         <Tab.Screen
           name="Posts"
           component={Posts}
+          initialParams={this.state.user.posts}
           options={{
             tabBarLabel: 'Posts',
             tabBarIcon: () => <Feather name="grid" size={20} color="#336dab" />,

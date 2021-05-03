@@ -18,7 +18,8 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import style from './style';
 import {TextInput} from 'react-native-paper';
-import { customFontRegular } from '../Font';
+import {customFontRegular} from '../Font';
+import {IP} from '../constants';
 
 export default class EditProfile extends React.Component {
   constructor(props) {
@@ -30,12 +31,44 @@ export default class EditProfile extends React.Component {
       username: this.props.route.params.user.username,
       phone: this.props.route.params.user.phone,
       email: this.props.route.params.user.email || '',
+      bio: this.props.route.params.user.bio,
       oldPassword: '',
       newPassword: '',
       secureTextOldPassword: true,
       secureTextNewPassword: true,
       isUsernameAvailable: true,
     };
+  }
+
+  update() {
+    fetch(`${IP}/v1/update-user`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: this.props.route.params.token,
+      },
+      body: JSON.stringify({
+        data: {
+          fullname: this.state.fullname,
+          username: this.state.username,
+          email: this.state.email,
+          phone: this.state.phone,
+          profileImage: this.state.profileImage,
+          bio: this.state.bio,
+        },
+        oldPassword: this.state.oldPassword,
+        newPassword: this.state.newPassword,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        alert('Profile Updated');
+        this.props.navigation.pop();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   render() {
@@ -174,7 +207,8 @@ export default class EditProfile extends React.Component {
               alignItems: 'center',
               alignSelf: 'center',
               justifyContent: 'center',
-            }}>
+            }}
+            onPress={() => this.update()}>
             <AntDesign name="check" size={30} color="#fff" />
           </TouchableOpacity>
         </View>

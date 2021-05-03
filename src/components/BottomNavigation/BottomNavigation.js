@@ -3,6 +3,7 @@ import {Image, View} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {MaterialCommunityIcons} from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Search from '../SearchScreen/Search';
 import Explore from '../ExploreScreen/Explore';
 import Notification from '../NotificationScreen/Notification';
@@ -10,6 +11,7 @@ import Dashboard from '../DashboardScreen/Dashboard';
 import Post from '../PostScreen/Post';
 import DrawerNavigator from './DrawerNavigation';
 import Profile from '../ProfileScreen/Profile';
+import Saved from '../SavedScreen/Saved';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -63,14 +65,17 @@ class BottomNavigator extends React.Component {
             ),
           }}
         />
-        {/* <Tab.Screen
-                    name="Notification"
-                    component={Notification}
-                    initialParams={this.props.route.params}
-                    options={{
-                        tabBarLabel: 'Search',
-                        tabBarIcon: ({ color }) => <Icon name='md-notifications' color={color} size={25} />
-                    }} /> */}
+        <Tab.Screen
+          name="Saved"
+          component={Saved}
+          initialParams={this.props.route.params}
+          options={{
+            tabBarLabel: 'Saved',
+            tabBarIcon: ({color}) => (
+              <FontAwesome name="bookmark" size={25} color={color} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     );
   }

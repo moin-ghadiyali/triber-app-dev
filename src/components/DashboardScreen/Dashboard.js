@@ -218,8 +218,8 @@ class PostCard extends React.Component {
               height: Dimensions.get('window').width,
               transform: [{scale: this.scale}],
             }}
-            source={{uri: url}}
-            resizeMode="contain"
+            source={{uri: this.props.post.postImage}}
+            // resizeMode="contain"
           />
         </PinchGestureHandler>
         {/* </TapGestureHandler> */}
@@ -444,8 +444,8 @@ class ShareUserCard extends React.Component {
           />
         </View>
         <View style={style.userInfoNames}>
-          <Text style={{fontSize: 16, color: '#fff'}}>Moin Ghadiyali</Text>
-          <Text style={{fontSize: 12, color: '#fff'}}>@moinghadiyali</Text>
+          <Text style={{fontSize: 16, color: '#fff'}}>Bhavin Bhanushali</Text>
+          <Text style={{fontSize: 12, color: '#fff'}}>@bhavin.bhanushali</Text>
         </View>
         <View style={style.followButtonView}>
           <TouchableOpacity style={[style.followButton]}>
@@ -507,13 +507,15 @@ export default class Dashboard extends React.Component {
               color="#336dab"
             />
           </TouchableOpacity>
-          <Text style={style.username}>T R I B E R</Text>
+          <Text style={style.username}>G O Z Z B Y</Text>
           <TouchableOpacity
             style={style.person_logo}
             onPress={() =>
               this.props.navigation.navigate('Profile', {
+                id: this.props.route.params.user._id,
                 user: this.props.route.params.user,
                 self: true,
+                token: this.props.route.params.token
               })
             }>
             <Image

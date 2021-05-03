@@ -147,7 +147,7 @@ export class UserChat extends React.Component {
                             <Image source={require('./images/selfprofilepic.jpg')} style={style.pic} />
                         </View>
                         <View style={style.info}>
-                            <Text style={{ fontSize: 12, color: '#000', fontFamily: customFontRegular }}>moinghadiyali</Text>
+                            <Text style={{ fontSize: 12, color: '#000', fontFamily: customFontRegular }}>bhavin.bhanushali</Text>
                             <Text numberOfLines={1} style={{ fontSize: 12, color: 'rgba(0,0,0,0.5)', fontFamily: customFontRegular }}>Hello there i amnew akwnlnf awdafnlanlawdlan awlnalwfnalwnafd awdf </Text>
                             <Text style={{ fontSize: 10, color: 'rgba(0,0,0,0.5)', fontFamily: customFontRegular }}>16m</Text>
                         </View>
@@ -174,8 +174,8 @@ export class UserChat extends React.Component {
                                     <View style={{ flex: 1, flexDirection: 'row', padding: 15, alignItems: 'center', justifyContent: 'center' }}>
                                         <Image source={require('./images/selfprofilepic.jpg')} style={{ borderRadius: 50, height: 90, width: 90, alignSelf: 'center', right: 5 }} />
                                         <View style={{ flexDirection: 'column', }}>
-                                            <Text style={{ color: '#fff', fontSize: 17, left: 5 }}>Moin Ghadiyali</Text>
-                                            <Text style={{ color: '#fff', fontSize: 14, left: 5 }}>@moinghadiyali</Text>
+                                            <Text style={{ color: '#fff', fontSize: 17, left: 5 }}>Bhavin Bhanushali</Text>
+                                            <Text style={{ color: '#fff', fontSize: 14, left: 5 }}>@bhavin.bhanushali</Text>
                                         </View>
                                     </View>
                                     <View style={{ borderWidth: 0.5, width: '90%', borderColor: '#fff', borderRadius: 5, alignSelf: 'center', }}></View>

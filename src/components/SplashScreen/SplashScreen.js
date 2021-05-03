@@ -9,7 +9,7 @@ export default class SplashScreen extends React.Component {
         <SafeAreaView>
           <View style={style.splashscreen}>
             <View style={style.triber_view}>
-              <Text style={style.triber_text}>Triber</Text>
+              <Text style={style.triber_text}>GOZZBY</Text>
             </View>
             <View style={style.quote}>
               <Text style={style.quote_text}>“Focus on how to be social,{"\n"} not on how to do social.” </Text>

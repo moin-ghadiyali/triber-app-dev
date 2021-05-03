@@ -19,7 +19,7 @@ export default class ChatRoom extends React.Component {
                         <Image source={require('./images/selfprofilepic.jpg')} style={{ height: 30, width: 30, borderRadius: 50, borderWidth: 0.6, borderColor: '#fff', alignSelf: 'center', }} />
                     </View>
                     <View style={{ flex: 7, justifyContent: 'center', }}>
-                        <Text style={{ color: '#fff', fontSize: 15, left: 10, fontFamily: customFontRegular, }}>moinghadiyali</Text>
+                        <Text style={{ color: '#fff', fontSize: 15, left: 10, fontFamily: customFontRegular, }}>bhavin.bhanushali</Text>
                     </View>
                     <TouchableOpacity style={style.groupAdd}>
                         <Feather name='info' size={30} color='#fff' />
