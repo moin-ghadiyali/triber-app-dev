@@ -200,8 +200,8 @@ class UserFollowCard extends React.Component {
                 />
                 <Text
                   style={{textAlign: 'center', color: '#fff', marginTop: 10}}>
-                  GOZZBY won't tell @bhavin.bhanushali they were removed from your
-                  followers.
+                  GOZZBY won't tell @bhavin.bhanushali they were removed from
+                  your followers.
                 </Text>
               </View>
               <View style={{flexDirection: 'row', backgroundColor: '#336dab'}}>
@@ -232,7 +232,9 @@ class UserFollowCard extends React.Component {
           </View>
           <View style={style.userInfoNames}>
             <Text style={{fontSize: 16, color: '#000'}}>Bhavin Bhanushali</Text>
-            <Text style={{fontSize: 12, color: '#000'}}>@bhavin.bhanushali</Text>
+            <Text style={{fontSize: 12, color: '#000'}}>
+              @bhavin.bhanushali
+            </Text>
           </View>
           <View style={style.followButtonView}>
             <TouchableOpacity
@@ -518,7 +520,7 @@ export default class Profile extends React.Component {
             onTouchEndCapture={() =>
               this.props.navigation.navigate('EditProfile', {
                 user: this.state.user,
-                token: this.props.route.params.token
+                token: this.props.route.params.token,
               })
             }>
             <MaterialCommunityIcons
@@ -703,11 +705,17 @@ export default class Profile extends React.Component {
                 {/* <TouchableOpacity style={style.edit}>
                                     <AntDesign name='edit' size={30} color='#fff' />
                                 </TouchableOpacity> */}
-                {/* <TouchableOpacity
+                <TouchableOpacity
                   style={style.setting}
-                  onPress={() => this.props.navigation.navigate('Settings')}>
-                  <AntDesign name="setting" size={30} color="#fff" />
-                </TouchableOpacity> */}
+                  onPress={() =>
+                    this.props.navigation.navigate('Login')
+                  }>
+                  <MaterialCommunityIcons
+                    name="logout"
+                    size={30}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
               </View>
               <View>
                 <View style={style.profileImage}>

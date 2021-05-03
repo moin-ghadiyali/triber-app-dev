@@ -364,16 +364,23 @@ class PostCard extends React.Component {
                 />
               </View>
               <View style={{flex: 9}}>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <Image
-                    source={{
-                      uri:
-                        'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
-                    }}
-                    size={25}
-                    style={{borderRadius: 100}}
-                  />
-                  <Text>Very nice picture</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <View
+                    style={{
+                      flex: 2,
+                      // alignContent: 'center',
+                      // justifyContent: 'center',
+                    }}>
+                    <Image
+                      source={{
+                        uri:
+                          'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
+                      }}
+                      size={25}
+                      style={{borderRadius: 100}}
+                    />
+                  </View>
+                  <Text style={{flex: 8}}>Very nice picture</Text>
                 </View>
               </View>
             </View>

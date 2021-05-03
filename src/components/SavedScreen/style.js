@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import ContentFont from '../Font';
 
+const postWidth = Dimensions.get('window').width / 3;
 export default style = StyleSheet.create({
     otp: {
         flex: 1,
@@ -53,5 +54,14 @@ export default style = StyleSheet.create({
         height: '100%',
         backgroundColor: '#fff',
         flexDirection: 'column',
+      },
+      shortPostCards: {
+        height: postWidth,
+        width: postWidth,
+        borderLeftWidth: 0.5,
+        borderBottomWidth: 0.5,
+        borderRightWidth: 0.5,
+        borderColor: '#fff',
+        backgroundColor: '#fff',
       },
 })

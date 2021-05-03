@@ -15,7 +15,7 @@ import {Content, Item, Input, Root} from 'native-base';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {Grid, Col} from 'react-native-easy-grid';
 import {customFontRegular} from '../Font';
-import { IP } from '../constants';
+import {IP} from '../constants';
 
 export default class Saved extends React.Component {
   constructor(props) {
@@ -27,7 +27,25 @@ export default class Saved extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${IP}/v1/bookmarks`, {
+    // fetch(`${IP}/v1/bookmarks`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //     token: this.props.route.params.token,
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((jsonResponse) => {
+    //     this.setState({
+    //       bookmarks: jsonResponse.result,
+    //     });
+    //     console.log(jsonResponse.result)
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    fetch(`${IP}/v1/posts`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -37,10 +55,10 @@ export default class Saved extends React.Component {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
+        console.log(jsonResponse);
         this.setState({
           bookmarks: jsonResponse.result,
         });
-        console.log(jsonResponse.result)
       })
       .catch((e) => {
         console.log(e);
@@ -86,12 +104,14 @@ export default class Saved extends React.Component {
 class ShortPostCards extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props.urlNew);
   }
   render() {
     return (
       <TouchableOpacity style={style.shortPostCards} onPress={this.props.route}>
         <Image
-          source={this.props.urlNew}
+          source={{uri: this.props.urlNew}}
           style={{width: '100%', height: '100%'}}
         />
       </TouchableOpacity>
