@@ -33,7 +33,7 @@ export default style = StyleSheet.create({
     },
     form: {
         position: 'relative',
-        top: 90,
+        top: 190,
         left: 5
     },
     input: {

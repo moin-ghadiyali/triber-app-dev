@@ -15,37 +15,38 @@ import {Content, Item, Input, Root} from 'native-base';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {Grid, Col} from 'react-native-easy-grid';
 import {customFontRegular} from '../Font';
+import { IP } from '../constants';
 
 export default class Saved extends React.Component {
-  componentDidMount() {
-    // await fetch(`${IP}/v1/bookmark`, {
-    //     method: 'GET',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //       token: this.props.token,
-    //     },
-    //   })
-    //     .then((response) => response.json())
-    //     .then((jsonResponse) => {
-    //       this.setState({
-    //         bookmark: !this.state.bookmark,
-    //       });
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-  }  
-  renderInputs() {
-    return (
-      <View>
-        <Input
-          style={[style.inputRadius, {borderRadius: 10}]}
-          keyboardType="numeric"
-        />
-      </View>
-    );
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      bookmarks: [],
+    };
   }
+
+  componentDidMount() {
+    fetch(`${IP}/v1/bookmarks`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: this.props.route.params.token,
+      },
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        this.setState({
+          bookmarks: jsonResponse.result,
+        });
+        console.log(jsonResponse.result)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   render() {
     return (
       <SafeAreaView>
@@ -70,7 +71,7 @@ export default class Saved extends React.Component {
             backgroundColor: '#fff',
           }}>
           <FlatList
-            data={[]}
+            data={this.state.bookmarks}
             keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={{flexGrow: 1}}
             ListEmptyComponent={<NoSavedsFound />}
