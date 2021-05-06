@@ -141,7 +141,7 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          {/* <Stack.Screen name='FingerPrint' component={FingerPrint} options={{ ...MyTransition }} /> */}
+          <Stack.Screen name='FingerPrint' component={FingerPrint} options={{ ...MyTransition }} />
           <Stack.Screen
             name="SplashScreen"
             component={SplashScreen}
