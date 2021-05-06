@@ -32,6 +32,7 @@ import Animated, {Easing} from 'react-native-reanimated';
 import {IP} from '../constants';
 import {customFontBold, customFontRegular} from '../Font';
 import {TextInput} from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class PostCard extends React.Component {
   scale = new Animated.Value(1);
@@ -545,6 +546,8 @@ export default class Dashboard extends React.Component {
     this.state = {
       posts: [],
     };
+    var data = AsyncStorage.getItem("token");
+    console.log(data);
   }
 
   componentDidMount() {

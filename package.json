@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/blur": "^3.4.1",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",
@@ -26,10 +27,12 @@
     "react-dom": "~16.9.0",
     "react-native": "0.63.4",
     "react-native-axios": "^0.17.1",
+    "react-native-cookies": "^3.3.0",
     "react-native-easy-grid": "^0.2.2",
     "react-native-gesture-handler": "^1.5.6",
     "react-native-image-crop-picker": "^0.36.0",
     "react-native-image-picker": "^3.3.2",
+    "react-native-otp-textinput": "^0.0.8",
     "react-native-paper": "^3.8.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^1.4.0",

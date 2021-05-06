@@ -13,7 +13,8 @@ export default style = StyleSheet.create({
         fontSize: 60,
         position: "relative",
         left: 25,
-        top: 70
+        top: 70,
+        color: '#336DAB'
     },
     form: {
         position: 'relative',
@@ -27,5 +28,29 @@ export default style = StyleSheet.create({
     },
     inputRadius: {
         textAlign: 'center'
-    }
+    },
+    signup_button: {
+        position: "absolute",
+        top: 620,
+        right: 50,
+        height: 100,
+        width: 100,
+        borderRadius: 20,
+        borderColor: '#000000',
+        backgroundColor: '#336dab',
+        transform: [{ rotate: '45deg' }],
+        // borderWidth: 2,
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3.84,
+        elevation: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    arrow_image: {
+        alignContent: 'center',
+        position: "relative",
+        transform: [{ rotate: '-45deg' }]
+    },
 })

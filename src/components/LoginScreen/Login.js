@@ -13,7 +13,8 @@ import style from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {TextInput} from 'react-native-paper';
 import {IP} from '../constants';
-import { customFontRegular } from '../Font';
+import {customFontRegular} from '../Font';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -40,9 +41,10 @@ export default class Login extends React.Component {
         method: 'POST',
       })
         .then((response) => response.json())
-        .then((response) => {
+        .then(async (response) => {
           console.log(response);
           if (response.responseCode == 1) {
+            await AsyncStorage.setItem('token', response.token);
             this.props.navigation.navigate('BottomNavigator', {
               token: response.token,
               user: response.user,
@@ -114,16 +116,14 @@ export default class Login extends React.Component {
                 onPress={() =>
                   this.props.navigation.navigate('ForgotPassword')
                 }>
-                <Text
-                  style={{color: '#ffffff', fontFamily: customFontRegular}}>
+                <Text style={{color: '#ffffff', fontFamily: customFontRegular}}>
                   Forgot Passcode?
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={style.buttons}
                 onPress={() => this.props.navigation.navigate('SignUp')}>
-                <Text
-                  style={{color: '#ffffff', fontFamily: customFontRegular}}>
+                <Text style={{color: '#ffffff', fontFamily: customFontRegular}}>
                   Don't have an account? Join now!
                 </Text>
               </TouchableOpacity>

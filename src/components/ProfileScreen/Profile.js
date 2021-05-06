@@ -27,6 +27,7 @@ import {Searchbar} from 'react-native-paper';
 import axios from 'axios';
 import {IP} from '../constants';
 import {customFontRegular} from '../Font';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -355,6 +356,9 @@ export default class Profile extends React.Component {
       translateXNameAnimated: new Animated.Value(-500),
       translateXDataAnimated: new Animated.Value(500),
       scaleEditButtonAnimated: new Animated.Value(0),
+      followers: [],
+      following: [],
+      token: null,
     };
     this.setFollowerModalVisible = this.setFollowerModalVisible.bind(this);
     this.setFollowingModalVisible = this.setFollowingModalVisible.bind(this);
@@ -392,12 +396,86 @@ export default class Profile extends React.Component {
       .catch((e) => {
         console.log(e);
       });
+    // this.setState({
+    //   token: AsyncStorage.getItem('token'),
+    // });
+    // console.log(this.state.token);
     this.scaleFollowAnimation();
     this.scaleMessageAnimation();
     this.scaleProfilePicAnimation();
     this.translateXNameAnimation();
     this.translateXDataAnimation();
     this.scaleEditButtonAnimation();
+  }
+
+  async follow() {
+    await fetch(`${IP}/v1/followers`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: await AsyncStorage.getItem('token'),
+      },
+      body: JSON.stringify({
+        responderId: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        this.setState({
+          toggleFollowIconBool: !this.state.toggleFollowIconBool,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  async followers() {
+    await fetch(`${IP}/v1/followers`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: await AsyncStorage.getItem('token'),
+      },
+      body: JSON.stringify({
+        userId: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        this.setState({
+          followers: jsonResponse.result,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  async following() {
+    await fetch(`${IP}/v1/following`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        token: await AsyncStorage.getItem('token'),
+      },
+      body: JSON.stringify({
+        userId: this.state.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        this.setState({
+          following: jsonResponse.result,
+        });
+        console.log(jsonResponse.result);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   scaleFollowAnimation() {
@@ -497,10 +575,12 @@ export default class Profile extends React.Component {
   }
 
   setFollowerModalVisible() {
+    this.followers();
     this.setState({followerModalVisible: !this.state.followerModalVisible});
   }
 
   setFollowingModalVisible() {
+    this.following();
     this.setState({followingModalVisible: !this.state.followingModalVisible});
   }
 
@@ -569,6 +649,7 @@ export default class Profile extends React.Component {
             color="#fff"
             size={30}
             style={style.iconDetails}
+            onPress={() => this.follow()}
           />
         );
       } else {
@@ -578,6 +659,7 @@ export default class Profile extends React.Component {
             color="#fff"
             size={30}
             style={style.iconDetails}
+            onPress={() => this.follow()}
           />
         );
       }
@@ -619,46 +701,29 @@ export default class Profile extends React.Component {
             </View>
             <View style={{flex: 12, flexDirection: 'column'}}>
               <View style={{flex: 9}}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                  <View style={{width: '100%', padding: 10, paddingBottom: 0}}>
-                    {/* <Icon name='md-search' size={25} color='#336dab' style={style.searchIcon} />
+                {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+                <View style={{width: '100%', padding: 10, paddingBottom: 0}}>
+                  {/* <Icon name='md-search' size={25} color='#336dab' style={style.searchIcon} />
                                 <TextInput placeholder='Search...' placeholderTextColor='#336dab' style={style.searchBar} /> */}
-                    <Searchbar
-                      style={style.searchBar}
-                      placeholder="Search..."
-                      placeholderTextColor="#666"
-                      iconColor="#336dab"
-                      inputStyle={{fontSize: 15}}
-                      theme={{colors: {text: '#666', primary: '#336dab'}}}
-                      clearIcon
-                      clearButtonMode="while-editing"
-                    />
-                  </View>
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                  <UserFollowCard />
-                </ScrollView>
+                  <Searchbar
+                    style={style.searchBar}
+                    placeholder="Search..."
+                    placeholderTextColor="#666"
+                    iconColor="#336dab"
+                    inputStyle={{fontSize: 15}}
+                    theme={{colors: {text: '#666', primary: '#336dab'}}}
+                    clearIcon
+                    clearButtonMode="while-editing"
+                  />
+                </View>
+                <FlatList
+                  data={this.state.followers}
+                  keyExtractor={(item, index) => index.toString()}
+                  contentContainerStyle={{flexGrow: 1}}
+                  ListEmptyComponent={<NoFollowersFound />}
+                  renderItem={({item}) => <UserFollowCard />}
+                />
+                {/* </ScrollView> */}
               </View>
             </View>
           </View>
@@ -702,17 +767,13 @@ export default class Profile extends React.Component {
                       clearButtonMode="while-editing"
                     />
                   </View>
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
-                  <UserFollowingCard />
+                  <FlatList
+                    data={this.state.following}
+                    keyExtractor={(item, index) => index.toString()}
+                    contentContainerStyle={{flexGrow: 1}}
+                    ListEmptyComponent={<NoFollowersFound />}
+                    renderItem={({item}) => <UserFollowingCard />}
+                  />
                 </ScrollView>
               </View>
             </View>
@@ -818,6 +879,36 @@ export default class Profile extends React.Component {
           </ScrollView>
           {edit}
         </View>
+      </View>
+    );
+  }
+}
+
+class NoFollowersFound extends React.Component {
+  render() {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          position: 'relative',
+          top: 300,
+        }}>
+        <Fontisto
+          name="photograph"
+          size={90}
+          color="#336dab"
+          style={{alignSelf: 'center', opacity: 0.6}}
+        />
+        <Text
+          style={{
+            marginTop: 7,
+            fontSize: 13,
+            color: '#336dab',
+            fontFamily: customFontRegular,
+            opacity: 0.6,
+          }}>
+          No Followers Yet
+        </Text>
       </View>
     );
   }
