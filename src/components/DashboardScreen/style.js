@@ -70,14 +70,16 @@ export default style = StyleSheet.create({
   person_logo: {
     flex: 1,
     justifyContent: 'center',
-    paddingRight: 10,
+    // paddingRight: 10,
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   person_logo_icon: {
     width: 30,
     height: 30,
     alignSelf: 'center',
     borderRadius: 50,
-    paddingLeft: 5,
+    // paddingLeft: 5,
   },
   commentBox: {
     flex: 0.8,
@@ -85,10 +87,10 @@ export default style = StyleSheet.create({
     justifyContent: 'center',
     // borderTopWidth: 0.3,
     padding: 0,
-    margin: 0
+    margin: 0,
   },
   username: {
-    flex: 9,
+    flex: 8,
     alignSelf: 'flex-start',
     color: '#336dab',
     textAlign: 'left',

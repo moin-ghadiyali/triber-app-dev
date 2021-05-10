@@ -35,7 +35,6 @@ import {TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class PostCard extends React.Component {
-  scale = new Animated.Value(1);
   constructor(props) {
     super(props);
     this.doubleTapRef = React.createRef();
@@ -48,6 +47,7 @@ class PostCard extends React.Component {
       commentModel: false,
       scaleLikeAnimated: new Animated.Value(1),
       scaleLikeAnimated: new Animated.Value(1),
+      scale: new Animated.Value(1),
     };
     console.log(this.state.post.postImage);
     this.openShare = this.openShare.bind(this);
@@ -95,23 +95,23 @@ class PostCard extends React.Component {
     });
   }
 
-  onPinchEvent() {
+  onPinchEvent = () => {
     Animated.event(
       [
         {
-          nativeEvent: {scale: this.scale},
+          nativeEvent: {scale: this.state.scale},
         },
       ],
       {
         useNativeDriver: true,
       },
     );
-  }
+  };
 
   onPinchStateChange = (event) => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
-      console.log(this.scale);
-      Animated.spring(this.scale, {
+      console.log(this.state.scale);
+      Animated.spring(this.state.scale, {
         toValue: 1,
         useNativeDriver: true,
       }).start();
@@ -267,32 +267,33 @@ class PostCard extends React.Component {
             <Ionicon style={{alignSelf: 'center'}} name="md-more" size={25} />
           </TouchableOpacity> */}
         </View>
-        {/* <Swipeable renderLeftActions={this.renderLeftActions}> */}
-        {/* <TapGestureHandler
+        <Swipeable renderLeftActions={this.renderLeftActions}>
+          {/* <TapGestureHandler
           waitFor={this.doubleTapRef}
           onHandlerStateChange={() => alert('hello')}> */}
-        {/* <TapGestureHandler
+          {/* <TapGestureHandler
           numberOfTaps={2}
           ref={this.doubleTapRef}
           // onHandlerStateChange={() => alert('double')}
           style={style.image}> */}
-        <PinchGestureHandler
-          onGestureEvent={this.onPinchEvent}
-          onHandlerStateChange={this.onPinchStateChange}>
-          <Animated.Image
-            style={{
-              // style.postImage,
-              width: '100%',
-              height: Dimensions.get('window').width,
-              transform: [{scale: this.scale}],
-            }}
-            source={{uri: this.props.post.postImage}}
-            // resizeMode="contain"
-          />
-        </PinchGestureHandler>
-        {/* </TapGestureHandler> */}
-        {/* </TapGestureHandler> */}
-        {/* </Swipeable> */}
+          <PinchGestureHandler
+            onGestureEvent={() => this.onPinchEvent()}
+            onHandlerStateChange={(event) => this.onPinchStateChange(event)}>
+            <Animated.Image
+              style={{
+                // style.postImage,
+                width: Dimensions.get('window').width,
+                height: Dimensions.get('window').width,
+                transform: [{scale: this.state.scale}],
+                zIndex: 10000,
+              }}
+              source={{uri: this.props.post.postImage}}
+              resizeMode="contain"
+            />
+          </PinchGestureHandler>
+          {/* </TapGestureHandler> */}
+          {/* </TapGestureHandler> */}
+        </Swipeable>
         <View style={style.postOptions}>
           {/* <MaterialCommunityIcons
             name="heart-outline"
@@ -546,7 +547,7 @@ export default class Dashboard extends React.Component {
     this.state = {
       posts: [],
     };
-    var data = AsyncStorage.getItem("token");
+    var data = AsyncStorage.getItem('token');
     console.log(data);
   }
 
@@ -581,15 +582,6 @@ export default class Dashboard extends React.Component {
     return (
       <View style={style.dashboard}>
         <View style={style.header}>
-          <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-            <Entypo
-              style={style.person_logo_icon}
-              name="menu"
-              size={30}
-              color="#336dab"
-            />
-          </TouchableOpacity>
-          <Text style={style.username}>G O Z Z B Y</Text>
           <TouchableOpacity
             style={style.person_logo}
             onPress={() =>
@@ -605,16 +597,18 @@ export default class Dashboard extends React.Component {
               source={{uri: this.props.route.params.user.profileImage}}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <Text style={style.username}>T R I B E R</Text>
+          <TouchableOpacity
             style={style.message}
-            onPress={() => this.props.navigation.navigate('Chat')}>
+            // onPress={() => this.props.navigation.navigate('Chat')}
+          >
             <Ionicon
               style={style.message_icon}
-              name="md-send"
-              color="#fff"
-              size={30}
+              name="md-send-outline"
+              color="#336dab"
+              size={27}
             />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
         <View style={style.content}>
           <FlatList
