@@ -28,10 +28,10 @@ import {
   State,
   TapGestureHandler,
 } from 'react-native-gesture-handler';
-import Animated, {Easing} from 'react-native-reanimated';
-import {IP} from '../constants';
-import {customFontBold, customFontRegular} from '../Font';
-import {TextInput} from 'react-native-paper';
+import Animated, { Easing } from 'react-native-reanimated';
+import { IP } from '../constants';
+import { customFontBold, customFontRegular } from '../Font';
+import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class PostCard extends React.Component {
@@ -99,7 +99,7 @@ class PostCard extends React.Component {
     Animated.event(
       [
         {
-          nativeEvent: {scale: this.state.scale},
+          nativeEvent: { scale: this.state.scale },
         },
       ],
       {
@@ -127,11 +127,11 @@ class PostCard extends React.Component {
   };
 
   openShare = (visible) => {
-    this.setState({shareModal: visible});
+    this.setState({ shareModal: visible });
   };
 
   openComment = (visible) => {
-    this.setState({commentModel: visible});
+    this.setState({ commentModel: visible });
   };
 
   async like() {
@@ -193,7 +193,7 @@ class PostCard extends React.Component {
     let url = `../../../public/${this.props.post.postImage}`.toString();
     let like;
     const scaleAnimationStyle = {
-      transform: [{scale: this.state.scaleLikeAnimated}],
+      transform: [{ scale: this.state.scaleLikeAnimated }],
     };
     if (this.state.like == false) {
       console.log(this.state.like);
@@ -253,7 +253,7 @@ class PostCard extends React.Component {
                   borderWidth: 1,
                   borderColor: '#fff',
                 }}
-                source={{uri: this.state.post.user[0].profileImage}}
+                source={{ uri: this.state.post.user[0].profileImage }}
               />
             </View>
             <View style={style.names}>
@@ -284,7 +284,7 @@ class PostCard extends React.Component {
                 // style.postImage,
                 width: Dimensions.get('window').width,
                 height: Dimensions.get('window').width,
-                transform: [{scale: this.state.scale}],
+                transform: [{ scale: this.state.scale }],
                 zIndex: 10000,
               }}
               source={{uri: this.props.post.postImage}}
@@ -308,7 +308,7 @@ class PostCard extends React.Component {
             size={27}
             style={style.comment}
             onPress={() =>
-              this.setState({commentModel: !this.state.commentModel})
+              this.setState({ commentModel: !this.state.commentModel })
             }
           />
           {/* <Feather name="share" color='#336dab' size={25} style={style.share} /> */}
@@ -345,10 +345,10 @@ class PostCard extends React.Component {
             this.openComment(!this.state.commentModel);
           }}>
           <View style={style.header}>
-            <Text style={[style.username, {fontSize: 23}]}>Comments</Text>
+            <Text style={[style.username, { fontSize: 23 }]}>Comments</Text>
           </View>
-          <View style={{flex: 9.5}}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={{ flex: 9.5 }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
               <View
                 style={{
                   flex: 1,
@@ -362,11 +362,11 @@ class PostCard extends React.Component {
                       'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
                   }}
                   size={25}
-                  style={{borderRadius: 100}}
+                  style={{ borderRadius: 100 }}
                 />
               </View>
-              <View style={{flex: 9}}>
-                <View style={{flexDirection: 'row'}}>
+              <View style={{ flex: 9 }}>
+                <View style={{ flexDirection: 'row' }}>
                   <View
                     style={{
                       flex: 2,
@@ -379,10 +379,10 @@ class PostCard extends React.Component {
                           'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQry1iOrc8u_v8st6ECCwY2tqk-jJO7VyLeLzLcG5e5YbnuB1xT',
                       }}
                       size={25}
-                      style={{borderRadius: 100}}
+                      style={{ borderRadius: 100 }}
                     />
                   </View>
-                  <Text style={{flex: 8}}>Very nice picture</Text>
+                  <Text style={{ flex: 8 }}>Very nice picture</Text>
                 </View>
               </View>
             </View>
@@ -401,7 +401,7 @@ class PostCard extends React.Component {
                   borderRadius: 100,
                   alignSelf: 'center',
                 }}
-                source={{uri: this.state.profileImage}}
+                source={{ uri: this.state.profileImage }}
               />
             </View>
             <View
@@ -430,7 +430,7 @@ class PostCard extends React.Component {
                 name="send-outline"
                 size={25}
                 color="#336dab"
-                style={{alignSelf: 'center'}}
+                style={{ alignSelf: 'center' }}
               />
             </View>
           </View>
@@ -481,7 +481,7 @@ class PostCard extends React.Component {
                                             </View>
                                         </View>
                                     </View> */}
-              <View style={{flex: 1}}>
+              <View style={{ flex: 1 }}>
                 <ScrollView>
                   <ShareUserCard />
                   <ShareUserCard />
@@ -525,12 +525,12 @@ class ShareUserCard extends React.Component {
           />
         </View>
         <View style={style.userInfoNames}>
-          <Text style={{fontSize: 16, color: '#fff'}}>Bhavin Bhanushali</Text>
-          <Text style={{fontSize: 12, color: '#fff'}}>@bhavin.bhanushali</Text>
+          <Text style={{ fontSize: 16, color: '#fff' }}>Bhavin Bhanushali</Text>
+          <Text style={{ fontSize: 12, color: '#fff' }}>@bhavin.bhanushali</Text>
         </View>
         <View style={style.followButtonView}>
           <TouchableOpacity style={[style.followButton]}>
-            <Text style={{textAlign: 'center', color: '#fff', fontSize: 14}}>
+            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 14 }}>
               Send
             </Text>
           </TouchableOpacity>
@@ -594,13 +594,13 @@ export default class Dashboard extends React.Component {
             }>
             <Image
               style={style.person_logo_icon}
-              source={{uri: this.props.route.params.user.profileImage}}
+              source={{ uri: this.props.route.params.user.profileImage }}
             />
           </TouchableOpacity>
           <Text style={style.username}>T R I B E R</Text>
           <TouchableOpacity
             style={style.message}
-            // onPress={() => this.props.navigation.navigate('Chat')}
+          // onPress={() => this.props.navigation.navigate('Chat')}
           >
             <Ionicon
               style={style.message_icon}
@@ -614,9 +614,9 @@ export default class Dashboard extends React.Component {
           <FlatList
             data={this.state.posts}
             keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={{flexGrow: 1}}
+            contentContainerStyle={{ flexGrow: 1 }}
             ListEmptyComponent={<NoAccountsFound />}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <PostCard
                 profileImage={this.props.route.params.user.profileImage}
                 post={item}
@@ -651,7 +651,7 @@ class NoAccountsFound extends React.Component {
           name="photograph"
           size={90}
           color="#336dab"
-          style={{alignSelf: 'center', opacity: 0.6}}
+          style={{ alignSelf: 'center', opacity: 0.6 }}
         />
         <Text
           style={{

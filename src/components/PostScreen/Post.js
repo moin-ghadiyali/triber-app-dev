@@ -9,11 +9,12 @@ import {
   View,
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import {FAB, Provider, Portal} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { IP } from '../constants';
-import { customFontRegular } from '../Font';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {IP} from '../constants';
+import {customFontRegular} from '../Font';
 import style from './style';
 
 export default class Post extends React.Component {
@@ -26,6 +27,7 @@ export default class Post extends React.Component {
         uri:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi84Vu2kADqkusC_YxUJzS-Kx4gml6LTBz8A&usqp=CAU',
       },
+      fabStatus: false,
     };
   }
 
@@ -96,7 +98,9 @@ export default class Post extends React.Component {
   render() {
     return (
       <View style={style.editScreen}>
-        <RBSheet
+        {/* <Provider>
+          <Portal> */}
+            {/* <RBSheet
           ref={(ref) => {
             this.RBSheet = ref;
           }}
@@ -123,73 +127,106 @@ export default class Post extends React.Component {
               Cancel
             </Text>
           </TouchableOpacity>
-        </RBSheet>
-        <View style={style.header}>
-          <Text
-            style={{
-              flex: 8,
-              color: '#336dab',
-              alignSelf: 'center',
-              fontSize: 20,
-              left: 10,
-              fontFamily: customFontRegular,
-            }}>
-            Post Image
-          </Text>
-          <TouchableOpacity
-            onPress={(e) => this.imageUpload()}
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              alignSelf: 'center',
-              justifyContent: 'center',
-            }}>
-            <AntDesign name="check" size={30} color="#336dab" />
-          </TouchableOpacity>
-        </View>
-        <View style={style.content}>
-          <View
-            style={{
-              width: '100%',
-              height: Dimensions.get('window').width,
-            }}>
-            <TouchableOpacity onPress={() => this.RBSheet.open()}>
-              <Image source={{uri: this.state.image.uri}} style={style.image} />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingLeft: 15,
-            }}>
-            <Entypo name="text" size={20} color="#336dab" />
-            <TextInput
-              placeholder="Caption..."
-              placeholderTextColor="#000"
-              numberOfLines={3}
-              style={style.input}
-              value={this.state.caption}
-              onChange={(e) => this.setState({caption: e.nativeEvent.text})}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingLeft: 15,
-            }}>
-            <Entypo name="location" size={20} color="#336dab" />
-            <TextInput
-              placeholder="Location"
-              placeholderTextColor="#000"
-              numberOfLines={3}
-              style={style.input}
-              value={this.state.location}
-              onChange={(e) => this.setState({location: e.nativeEvent.text})}
-            />
-          </View>
-        </View>
+        </RBSheet> */}
+            <View style={style.header}>
+              <Text
+                style={{
+                  flex: 8,
+                  color: '#336dab',
+                  alignSelf: 'center',
+                  fontSize: 20,
+                  left: 10,
+                  fontFamily: customFontRegular,
+                }}>
+                Post Image
+              </Text>
+              <TouchableOpacity
+                onPress={(e) => this.imageUpload()}
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                }}>
+                <AntDesign name="check" size={30} color="#336dab" />
+              </TouchableOpacity>
+            </View>
+            <View style={style.content}>
+              <FAB.Group
+                open={this.state.fabStatus}
+                icon={this.state.fabStatus ? 'minus' : 'plus'}
+                actions={[
+                  {
+                    icon: 'camera',
+                    color: '#336dab',
+                    onPress: () => this.imageUploadCamera(),
+                  },
+                  {
+                    icon: 'image',
+                    color: '#336dab',
+                    onPress: () => this.imageUploadGallery(),
+                  },
+                ]}
+                onStateChange={() =>
+                  this.setState({fabStatus: !this.state.fabStatus})
+                }
+                color="#336dab"
+                fabStyle={{backgroundColor: '#fff'}}
+                theme={{
+                  animation: {scale: 1},
+                  colors: {backdrop: 'transparent'},
+                }}
+                style={{borderWidth: 0.2, backgroundColor: '#fff'}}
+              />
+              <View
+                style={{
+                  width: '100%',
+                  height: Dimensions.get('window').width,
+                }}>
+                {/* <TouchableOpacity onPress={() => this.RBSheet.open()}> */}
+                <Image
+                  source={{uri: this.state.image.uri}}
+                  style={style.image}
+                />
+                {/* </TouchableOpacity> */}
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingLeft: 15,
+                }}>
+                <Entypo name="text" size={20} color="#336dab" />
+                <TextInput
+                  placeholder="Caption..."
+                  placeholderTextColor="#000"
+                  numberOfLines={3}
+                  style={style.input}
+                  value={this.state.caption}
+                  onChange={(e) => this.setState({caption: e.nativeEvent.text})}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingLeft: 15,
+                }}>
+                <Entypo name="location" size={20} color="#336dab" />
+                <TextInput
+                  placeholder="Location"
+                  placeholderTextColor="#000"
+                  numberOfLines={3}
+                  style={style.input}
+                  value={this.state.location}
+                  onChange={(e) =>
+                    this.setState({location: e.nativeEvent.text})
+                  }
+                />
+              </View>
+            </View>
+          {/* </Portal>
+        </Provider> */}
       </View>
     );
   }
